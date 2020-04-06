@@ -50,6 +50,7 @@
     <None Remove="Ui\MainWindow.glade" />
     <None Remove="Ui\ProfileDialog.glade" />
     <None Remove="Ui\SettingsWindow.glade" />
+    <None Remove="Ui\TitleUpdateWindow.glade" />
   </ItemGroup>
 
   <ItemGroup>
@@ -73,6 +74,7 @@
     <EmbeddedResource Include="Ui\MainWindow.glade" />
     <EmbeddedResource Include="Ui\ProfileDialog.glade" />
     <EmbeddedResource Include="Ui\SettingsWindow.glade" />
+    <EmbeddedResource Include="Ui\TitleUpdateWindow.glade" />
   </ItemGroup>
 
   <ItemGroup>
