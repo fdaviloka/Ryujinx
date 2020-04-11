@@ -15,7 +15,7 @@ namespace Ryujinx
         public static string Version { get; private set; }
 
         public static string ConfigurationPath { get; set; }
-		
+
         static void Main(string[] args)
         {
             Toolkit.Init(new ToolkitOptions
@@ -53,7 +53,7 @@ namespace Ryujinx
 
                 ConfigurationFileFormat configurationFileFormat = ConfigurationFileFormat.Load(localConfigurationPath);
 
-                ConfigurationState.Instance.Load(configurationFileFormat);
+                ConfigurationState.Instance.Load(configurationFileFormat, ConfigurationPath);
             }
             else if (File.Exists(globalConfigurationPath))
             {
@@ -61,7 +61,7 @@ namespace Ryujinx
 
                 ConfigurationFileFormat configurationFileFormat = ConfigurationFileFormat.Load(globalConfigurationPath);
 
-                ConfigurationState.Instance.Load(configurationFileFormat);
+                ConfigurationState.Instance.Load(configurationFileFormat, ConfigurationPath);
             }
             else
             {

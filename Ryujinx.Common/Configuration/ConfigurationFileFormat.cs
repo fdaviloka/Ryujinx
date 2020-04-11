@@ -9,14 +9,23 @@ using Utf8Json.Resolvers;
 using Ryujinx.Configuration.System;
 using Ryujinx.Configuration.Hid;
 using Ryujinx.Common.Configuration.Hid;
-using Ryujinx.UI.Input;
 using Ryujinx.Configuration.Ui;
 
 namespace Ryujinx.Configuration
 {
     public class ConfigurationFileFormat
     {
+        /// <summary>
+        /// The current version of the file format
+        /// </summary>
+        public const int CurrentVersion = 5;
+
         public int Version { get; set; }
+
+        /// <summary>
+        /// Max Anisotropy. Values range from 0 - 16. Set to -1 to let the game decide.
+        /// </summary>
+        public float MaxAnisotropy { get; set; }
 
         /// <summary>
         /// Dumps shaders in this local directory
@@ -74,6 +83,21 @@ namespace Ryujinx.Configuration
         public Language SystemLanguage { get; set; }
 
         /// <summary>
+        /// Change System Region
+        /// </summary>
+        public Region SystemRegion { get; set; }
+
+        /// <summary>
+        /// Change System TimeZone
+        /// </summary>
+        public string SystemTimeZone { get; set; }
+
+        /// <summary>
+        /// Change System Time Offset In Seonds
+        /// </summary>
+        public long SystemTimeOffset { get; set; }
+
+        /// <summary>
         /// Enables or disables Docked Mode
         /// </summary>
         public bool DockedMode { get; set; }
@@ -109,11 +133,6 @@ namespace Ryujinx.Configuration
         public bool IgnoreMissingServices { get; set; }
 
         /// <summary>
-        ///  The primary controller's type
-        /// </summary>
-        public ControllerType ControllerType { get; set; }
-
-        /// <summary>
         /// Used to toggle columns in the GUI
         /// </summary>
         public GuiColumns GuiColumns { get; set; }
@@ -141,12 +160,12 @@ namespace Ryujinx.Configuration
         /// <summary>
         /// Keyboard control bindings
         /// </summary>
-        public NpadKeyboard KeyboardControls { get; set; }
+        public List<KeyboardConfig> KeyboardConfig { get; set; }
 
         /// <summary>
         /// Controller control bindings
         /// </summary>
-        public NpadController JoystickControls { get; set; }
+        public List<ControllerConfig> ControllerConfig { get; set; }
 
         /// <summary>
         /// Loads a configuration file from disk
@@ -180,7 +199,7 @@ namespace Ryujinx.Configuration
             File.WriteAllText(path, Encoding.UTF8.GetString(data, 0, data.Length).PrettyPrintJson());
         }
 
-        private class ConfigurationEnumFormatter<T> : IJsonFormatter<T>
+        public class ConfigurationEnumFormatter<T> : IJsonFormatter<T>
             where T : struct
         {
             public void Serialize(ref JsonWriter writer, T value, IJsonFormatterResolver formatterResolver)

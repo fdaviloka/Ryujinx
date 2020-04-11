@@ -117,6 +117,9 @@ namespace Ryujinx.Graphics.Gpu.State
         /// </summary>
         private void InitializeDefaultState()
         {
+            // Enable Rasterizer
+            _backingMemory[(int)MethodOffset.RasterizeEnable] = 1;
+
             // Depth ranges.
             for (int index = 0; index < 8; index++)
             {
@@ -129,6 +132,9 @@ namespace Ryujinx.Graphics.Gpu.State
 
             // Default front stencil mask.
             _backingMemory[0x4e7] = 0xff;
+
+            // Conditional rendering condition.
+            _backingMemory[0x556] = (int)Condition.Always;
 
             // Default color mask.
             for (int index = 0; index < Constants.TotalRenderTargets; index++)

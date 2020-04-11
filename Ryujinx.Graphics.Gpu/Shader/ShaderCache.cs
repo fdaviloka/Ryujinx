@@ -183,6 +183,14 @@ namespace Ryujinx.Graphics.Gpu.Shader
                 pack.Add(GetShaderCode(addresses.TessEvaluation));
             }
 
+            //gpShaders.Shaders[1] = TranslateGraphicsShader(state, ShaderStage.TessellationControl,    addresses.TessControl);
+            //gpShaders.Shaders[2] = TranslateGraphicsShader(state, ShaderStage.TessellationEvaluation, addresses.TessEvaluation);
+            //gpShaders.Shaders[3] = TranslateGraphicsShader(state, ShaderStage.Geometry,               addresses.Geometry);
+            //gpShaders.Shaders[4] = TranslateGraphicsShader(state, ShaderStage.Fragment,               addresses.Fragment);
+
+            //List<IShader> hostShaders = new List<IShader>();
+
+            //for (int stage = 0; stage < gpShaders.Shaders.Length; stage++)
             if (addresses.Geometry != 0)
             {
                 pack.Add(GetShaderCode(addresses.Geometry));

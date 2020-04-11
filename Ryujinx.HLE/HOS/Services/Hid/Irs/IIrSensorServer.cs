@@ -1,8 +1,8 @@
-﻿using Ryujinx.Common.Logging;
+﻿using Ryujinx.Common.Hid;
+using Ryujinx.Common.Logging;
 using Ryujinx.HLE.HOS.Ipc;
 using Ryujinx.HLE.HOS.Kernel.Common;
 using Ryujinx.HLE.HOS.Services.Hid.HidServer;
-using Ryujinx.HLE.Input;
 using System;
 
 namespace Ryujinx.HLE.HOS.Services.Hid.Irs
@@ -57,16 +57,16 @@ namespace Ryujinx.HLE.HOS.Services.Hid.Irs
         // GetNpadIrCameraHandle(u32) -> nn::irsensor::IrCameraHandle
         public ResultCode GetNpadIrCameraHandle(ServiceCtx context)
         {
-            HidNpadIdType npadIdType = (HidNpadIdType)context.RequestData.ReadUInt32();
+            NpadIdType npadIdType = (NpadIdType)context.RequestData.ReadUInt32();
 
-            if (npadIdType >  HidNpadIdType.Player8 && 
-                npadIdType != HidNpadIdType.Unknown && 
-                npadIdType != HidNpadIdType.Handheld)
+            if (npadIdType >  NpadIdType.Player8 && 
+                npadIdType != NpadIdType.Unknown && 
+                npadIdType != NpadIdType.Handheld)
             {
                 return ResultCode.NpadIdOutOfRange;
             }
 
-            ControllerId irCameraHandle = HidUtils.GetIndexFromNpadIdType(npadIdType);
+            PlayerIndex irCameraHandle = HidUtils.GetIndexFromNpadIdType(npadIdType);
 
             context.ResponseData.Write((int)irCameraHandle);
 
