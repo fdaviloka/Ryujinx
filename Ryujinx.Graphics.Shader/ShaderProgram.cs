@@ -18,5 +18,10 @@ namespace Ryujinx.Graphics.Shader
         {
             Code = line + Environment.NewLine + Code;
         }
+		
+		public void Replace(string name, string value)
+        {
+            Code = Code.Replace(name, value);
+        }
     }
 }
